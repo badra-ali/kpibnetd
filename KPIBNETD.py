@@ -55,49 +55,54 @@ def page_accueil():
 # Page de saisie des données des collaborateurs
 def page_saisie_donnees_collaborateur():
     st.image('Logo_bnetd_transparence.png',caption=' ')
-    init_donnees_collaborateurs()
-    st.title("Saisie des données de collaborateurs")
-    kpi = saisir_kpi()
-    st.session_state.donnees_collaborateurs.append(kpi)  # Ajouter les données du collaborateur à la liste
-
-    # Créer un DataFrame à partir de la liste de données
-    df = pd.DataFrame(st.session_state.donnees_collaborateurs)
-
-    if st.button("Enregistrer les données"):
-    # Création d'un DataFrame avec les données saisies
+    if st.button("Saisie les Informations")
+        init_donnees_collaborateurs()
+        st.title("Saisie des données de collaborateurs")
+        kpi = saisir_kpi()
+        st.session_state.donnees_collaborateurs.append(kpi)  # Ajouter les données du collaborateur à la liste
     
-        donnees=pd.read_excel("donnees_kpi.xlsx", sheet_name="Sheet1")
-        df_updated = pd.concat((donnees, df), ignore_index=True)
-        df_updated=df_updated.drop(["Unnamed: 0"], axis=1)
-        #df_updated=df_updated.iloc[:,1:]
-        # Enregistrement dans un fichier Excel
+        # Créer un DataFrame à partir de la liste de données
+        df = pd.DataFrame(st.session_state.donnees_collaborateurs)
     
-        import os
-        import shutil
+        if st.button("Enregistrer les données"):
+        # Création d'un DataFrame avec les données saisies
         
-        # Chemin du fichier à remplacer
-        chemin_fichier = 'donnees_kpi.xlsx'
+            donnees=pd.read_excel("donnees_kpi.xlsx", sheet_name="Sheet1")
+            df_updated = pd.concat((donnees, df), ignore_index=True)
+            df_updated=df_updated.drop(["Unnamed: 0"], axis=1)
+            #df_updated=df_updated.iloc[:,1:]
+            # Enregistrement dans un fichier Excel
         
-        # Vérifier si le fichier existe
-        if os.path.exists(chemin_fichier):
-            # Supprimer le fichier existant
-            os.remove(chemin_fichier)
-            print(f"Le fichier {chemin_fichier} existant a été supprimé.")
+            import os
+            import shutil
+            
+            # Chemin du fichier à remplacer
+            chemin_fichier = 'donnees_kpi.xlsx'
+            
+            # Vérifier si le fichier existe
+            if os.path.exists(chemin_fichier):
+                # Supprimer le fichier existant
+                os.remove(chemin_fichier)
+                print(f"Le fichier {chemin_fichier} existant a été supprimé.")
+            
+            # Copier le nouveau fichier pour le remplacer
+            try:
+                # Assurez-vous que vous avez les autorisations nécessaires pour écrire dans ce répertoire
+                shutil.copy2('nouveau_donnees_kpi.xlsx', chemin_fichier)
+                print("Le fichier a été remplacé avec succès.")
+            except PermissionError:
+                print("Vous n'avez pas les autorisations nécessaires pour écrire dans ce répertoire.")
+            except FileNotFoundError:
+                print("Le fichier source n'existe pas.")
+            except Exception as e:
+                print(f"Une erreur s'est produite : {e}")
+            # Enregistrement dans un fichier Excel
+            df_updated.to_excel("donnees_kpi.xlsx")
+            st.success("Les données ont été enregistrées avec succès dans 'donnees_kpi.xlsx'")
+
+    if st.button("Importez un Fichier"):
+
         
-        # Copier le nouveau fichier pour le remplacer
-        try:
-            # Assurez-vous que vous avez les autorisations nécessaires pour écrire dans ce répertoire
-            shutil.copy2('nouveau_donnees_kpi.xlsx', chemin_fichier)
-            print("Le fichier a été remplacé avec succès.")
-        except PermissionError:
-            print("Vous n'avez pas les autorisations nécessaires pour écrire dans ce répertoire.")
-        except FileNotFoundError:
-            print("Le fichier source n'existe pas.")
-        except Exception as e:
-            print(f"Une erreur s'est produite : {e}")
-        # Enregistrement dans un fichier Excel
-        df_updated.to_excel("donnees_kpi.xlsx")
-        st.success("Les données ont été enregistrées avec succès dans 'donnees_kpi.xlsx'")
     
 # Page du tableau de bord
 def page_tableau_de_bord():
