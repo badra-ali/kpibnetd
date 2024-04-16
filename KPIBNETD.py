@@ -55,7 +55,7 @@ def page_accueil():
 # Page de saisie des données des collaborateurs
 def page_saisie_donnees_collaborateur():
     st.image('Logo_bnetd_transparence.png',caption=' ')
-    if st.button("Saisie les Informations")
+    if st.button("Saisie les Informations"):
         init_donnees_collaborateurs()
         st.title("Saisie des données de collaborateurs")
         kpi = saisir_kpi()
