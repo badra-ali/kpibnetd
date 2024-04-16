@@ -43,7 +43,7 @@ def saisir_kpi():
 # Affichage du tableau de bord pour chaque collaborateur
 # Page d'accueil
 def page_accueil():
-    #st.image('Logo_bnetd_transparence.png',caption=' ')
+    st.image('Logo_bnetd_transparence.png',caption=' ')
     st.title("Page d'accueil")
     st.markdown("Bienvenue sur la page d'accueil !")
     st.markdown("Cliquez sur les liens ci-dessous pour accéder aux autres pages :")
@@ -54,7 +54,7 @@ def page_accueil():
 
 # Page de saisie des données des collaborateurs
 def page_saisie_donnees_collaborateur():
-    #st.image('Logo_bnetd_transparence.png',caption=' ')
+    st.image('Logo_bnetd_transparence.png',caption=' ')
     init_donnees_collaborateurs()
     st.title("Saisie des données de collaborateurs")
     kpi = saisir_kpi()
@@ -101,7 +101,7 @@ def page_saisie_donnees_collaborateur():
     
 # Page du tableau de bord
 def page_tableau_de_bord():
-    #st.image('Logo_bnetd_transparence.png',caption=' ')
+    st.image('Logo_bnetd_transparence.png',caption=' ')
 
     df = pd.read_excel("1_graphiques_DEFI.xlsx")
     
