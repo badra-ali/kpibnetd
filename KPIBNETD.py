@@ -54,8 +54,8 @@ def page_accueil():
 
 # Page de saisie des données des collaborateurs
 def page_saisie_donnees_collaborateur():
-    st.image('Logo_bnetd_transparence.png',caption=' ')
-    if st.button("Saisie les Informations"):
+        st.image('Logo_bnetd_transparence.png',caption=' ')
+        #if st.button("Saisie les Informations"):
         init_donnees_collaborateurs()
         st.title("Saisie des données de collaborateurs")
         kpi = saisir_kpi()
@@ -100,8 +100,8 @@ def page_saisie_donnees_collaborateur():
             df_updated.to_excel("donnees_kpi.xlsx")
             st.success("Les données ont été enregistrées avec succès dans 'donnees_kpi.xlsx'")
 
-    if st.button("Importez un Fichier"):
-        st.write("ok")
+        #if st.button("Importez un Fichier"):
+        #st.write("ok")
 
         
     
