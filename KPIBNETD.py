@@ -256,13 +256,13 @@ def page_tableau_de_bord():
     plt.ylabel("Montant total")
     st.pyplot()
 
-    """# Diagramme en barres pour montrer le nombre de projets par état d'avancement
+    # Diagramme en barres pour montrer le nombre de projets par état d'avancement
     st.subheader("Nombre de projets par état d'avancement")
-    sns.countplot(x='État d'avancement', data=df, palette='viridis')
+    sns.countplot(x='État d'avancement', data=df)
     plt.title("Nombre de projets par état d'avancement")
     plt.xlabel("État d'avancement")
     plt.ylabel("Nombre de projets")
-    st.pyplot()"""
+    st.pyplot()
 
    
 # Navigation entre les différentes pages
