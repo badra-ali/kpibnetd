@@ -100,7 +100,7 @@ def page_saisie_donnees_collaborateur():
     # Ajout des données du collaborateur à la session
     if 'donnees_collaborateurs' not in st.session_state:
         st.session_state.donnees_collaborateurs = []
-    st.session_state.donnees_collaborateurs.append(kpi)
+        st.session_state.donnees_collaborateurs.append(kpi)
     
     # Affichage des données saisies dans un DataFrame
     st.write("Données saisies:")
