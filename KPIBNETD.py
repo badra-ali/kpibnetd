@@ -189,80 +189,63 @@ def page_tableau_de_bord():
 
     with col1:
         st.subheader("Nombre de projets par collaborateur")
-        sns.histplot(df['Nom du Collaborateur'].dropna(), bins=20, kde=True)
-        plt.title('Nombre de projets par collaborateur')
-        st.pyplot()
+        fig, ax = plt.subplots()
+        sns.histplot(df['Nom du Collaborateur'].dropna(), bins=20, kde=True, ax=ax)
+        ax.set_title('Nombre de projets par collaborateur')
+        st.pyplot(fig)
 
         st.subheader("Répartition de la Typologie de marché")
-        sns.histplot(df['Typologie de marché'].dropna(), bins=20, kde=True)
-        plt.title("Répartition de la Typologie de marché")
-        st.pyplot()
+        fig, ax = plt.subplots()
+        sns.histplot(df['Typologie de marché'].dropna(), bins=20, kde=True, ax=ax)
+        ax.set_title("Répartition de la Typologie de marché")
+        st.pyplot(fig)
 
     with col2:
         st.subheader("Répartition des Zones du projet")
-        df['Zone du projet'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
-        plt.title("Répartition des Zones du projet")
-        st.pyplot()
+        fig, ax = plt.subplots()
+        df['Zone du projet'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax)
+        ax.set_title("Répartition des Zones du projet")
+        st.pyplot(fig)
 
         st.subheader("Répartition des Phasages du projet")
-        df['Phasage du projet'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
-        plt.title("Répartition des Phasages du projet")
-        st.pyplot()
+        fig, ax = plt.subplots()
+        df['Phasage du projet'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax)
+        ax.set_title("Répartition des Phasages du projet")
+        st.pyplot(fig)
 
     with col3:
         st.subheader("Répartition des collaborateurs par projet")
-        df['Nom du dossier'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
-        plt.title('Répartition des collaborateurs par projet')
-        st.pyplot()
+        fig, ax = plt.subplots()
+        df['Nom du dossier'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax)
+        ax.set_title('Répartition des collaborateurs par projet')
+        st.pyplot(fig)
 
         st.subheader("Répartition des État d'avancement")
-        sns.histplot(df["État d'avancement"].dropna(), bins=20, kde=True)
-        plt.title("Répartition des État d'avancement")
-        st.pyplot()
+        fig, ax = plt.subplots()
+        sns.histplot(df["État d'avancement"].dropna(), bins=20, kde=True, ax=ax)
+        ax.set_title("Répartition des État d'avancement")
+        st.pyplot(fig)
 
     # Comparaison des montants moyens par collaborateur
     st.header("Comparaison des montants moyens par collaborateur")
-    sns.barplot(x='Montant', y='Nom du Collaborateur', data=df.sort_values(by="Montant").iloc[-20:], estimator=np.mean)
-    plt.title("Comparaison des montants moyens par collaborateur")
-    st.pyplot()
+    fig, ax = plt.subplots()
+    sns.barplot(x='Montant', y='Nom du Collaborateur', data=df.sort_values(by="Montant").iloc[-20:], estimator=np.mean, ax=ax)
+    ax.set_title("Comparaison des montants moyens par collaborateur")
+    st.pyplot(fig)
 
     # Répartition du Nombre d'offres envoyées par agent
     st.header("Répartition du Nombre d'offres envoyées par agent")
-    df["Nombre d'offres envoyées par l'agent"].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
-    plt.title("Répartition du Nombre d'offres envoyées par agent")
-    st.pyplot()
+    fig, ax = plt.subplots()
+    df["Nombre d'offres envoyées par l'agent"].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax)
+    ax.set_title("Répartition du Nombre d'offres envoyées par agent")
+    st.pyplot(fig)
 
     # Répartition du Type de sollicitation
     st.header("Répartition du Type de sollicitation")
-    sns.histplot(df["Type de sollicitation"].dropna(), bins=20, kde=True)
-    plt.title("Répartition du Type de sollicitation")
-    st.pyplot()
-
-    # Ajout de nouvelles visualisations
-    st.header("Visualisations supplémentaires")
-
-    # Heatmap des corrélations entre les variables numériques
-    st.subheader("Heatmap des corrélations")
-    corr = df.corr()
-    sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f")
-    st.pyplot()
-
-    # Diagramme en barres empilées pour comparer les montants par collaborateur et par typologie de marché
-    st.subheader("Comparaison des montants par collaborateur et par typologie de marché")
-    df_pivot = df.pivot_table(index='Nom du Collaborateur', columns='Typologie de marché', values='Montant', aggfunc='sum').fillna(0)
-    df_pivot.plot(kind='bar', stacked=True)
-    plt.title("Comparaison des montants par collaborateur et par typologie de marché")
-    plt.xlabel("Collaborateur")
-    plt.ylabel("Montant total")
-    st.pyplot()
-
-    # Diagramme en barres pour montrer le nombre de projets par état d'avancement
-    st.subheader("Nombre de projets par état d'avancement")
-    sns.countplot(x='État d'avancement', data=df)
-    plt.title("Nombre de projets par état d'avancement")
-    plt.xlabel("État d'avancement")
-    plt.ylabel("Nombre de projets")
-    st.pyplot()
+    fig, ax = plt.subplots()
+    sns.histplot(df["Type de sollicitation"].dropna(), bins=20, kde=True, ax=ax)
+    ax.set_title("Répartition du Type de sollicitation")
+    st.pyplot(fig)
 
    
 # Navigation entre les différentes pages
