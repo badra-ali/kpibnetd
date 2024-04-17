@@ -161,8 +161,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Appel de la fonction page_saisie_donnees_collaborateur
-page_saisie_donnees_collaborateur()
     
 # Page du tableau de bord
 def page_tableau_de_bord():
