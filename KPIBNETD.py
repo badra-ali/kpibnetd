@@ -43,14 +43,56 @@ def saisir_kpi():
 # Affichage du tableau de bord pour chaque collaborateur
 # Page d'accueil
 def page_accueil():
-    st.image('Logo_bnetd_transparence.png',caption=' ')
+    st.image('Logo_bnetd_transparence.png', caption='', width=200)
     st.title("Page d'accueil")
-    st.markdown("Bienvenue sur la page d'accueil !")
-    st.markdown("Cliquez sur les liens ci-dessous pour accéder aux autres pages :")
-    if st.button("Page de saisie des données des collaborateurs"):
-        page_saisie_donnees_collaborateur()
-    if st.button("Page du tableau de bord"):
-        page_tableau_de_bord()
+    st.markdown(
+        """
+        <div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px;">
+            <p style="font-size: 18px;">Bienvenue sur la page d'accueil !</p>
+            <p style="font-size: 16px;">Cliquez sur les liens ci-dessous pour accéder aux autres pages :</p>
+            <div style="margin-top: 20px;">
+                <button class="styled-button" onclick="window.location.href='/page_saisie_donnees_collaborateur'">Page de saisie des données des collaborateurs</button>
+                <button class="styled-button" onclick="window.location.href='/page_tableau_de_bord'">Page du tableau de bord</button>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Ajoutez le style CSS dans un bloc de code HTML
+st.markdown(
+    """
+    <style>
+        .styled-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+        }
+
+        .styled-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+def page_saisie_donnees_collaborateur():
+    # Votre fonction page_saisie_donnees_collaborateur ici
+    pass
+
+def page_tableau_de_bord():
+    # Votre fonction page_tableau_de_bord ici
+    pass
 
 # Page de saisie des données des collaborateurs
 def page_saisie_donnees_collaborateur():
