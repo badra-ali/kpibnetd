@@ -99,6 +99,8 @@ def page_saisie_donnees_collaborateur():
     
         # Créer un DataFrame à partir de la liste de données
         df = pd.DataFrame(st.session_state.donnees_collaborateurs)
+        st.write("Données saisies:")
+        st.write(df)
     
         if st.button("Enregistrer les données"):
         # Création d'un DataFrame avec les données saisies
@@ -138,6 +140,32 @@ def page_saisie_donnees_collaborateur():
 
         #if st.button("Importez un Fichier"):
         #st.write("ok")
+
+st.markdown(
+    """
+    <style>
+        .button-primary {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+        }
+
+        .button-primary:hover {
+            background-color: #45a049;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
     
 # Page du tableau de bord
