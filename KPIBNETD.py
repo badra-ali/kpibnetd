@@ -170,108 +170,74 @@ st.markdown(
     
 # Page du tableau de bord
 def page_tableau_de_bord():
-    st.image('Logo_bnetd_transparence.png',caption=' ')
+    st.image('Logo_bnetd_transparence.png', caption='', width=200)
 
+    # Chargement des données
     df = pd.read_excel("1_graphiques_DEFI.xlsx")
-    
-    # Afficher un résumé des données
-    st.subheader('Résumé des données')
+
+    # Titre et description
+    st.title("Tableau de Bord")
+    st.write("Bienvenue sur votre tableau de bord. Explorez les différentes visualisations pour comprendre vos données.")
+
+    # Résumé des données
+    st.header("Résumé des données")
     st.write(df.head())
     st.write(df.info())
-    
-    
+
+    # Visualisations avec colonnes
     col1, col2, col3 = st.columns(3)
+
     with col1:
-            # Visualisation de la distribution des montants
-            #st.subheader('Nombre de projets par collaborateur')
-            fig=plt.figure(figsize=(10, 6))
-            sns.histplot(df['Nom du Collaborateur'].dropna(), bins=20, kde=True)
-            plt.title('Nombre de projets par collaborateur')
-            st.pyplot(fig)
-            
+        st.subheader("Nombre de projets par collaborateur")
+        sns.histplot(df['Nom du Collaborateur'].dropna(), bins=20, kde=True)
+        plt.title('Nombre de projets par collaborateur')
+        st.pyplot()
 
-            # Visualisation de la distribution des montants
-            #st.subheader('Nombre de projets par collaborateur')
-            fig=plt.figure(figsize=(10, 6))
-            sns.histplot(df['Typologie de marché'].dropna(), bins=20, kde=True)
-            plt.title("Répartition de la Typologie de marché")
-            st.pyplot(fig)
-            
-
-            #st.subheader('Repation des collaborateur part projet')
-            type_handicap = df['Zone du projet']
-    
-            # Compter le nombre de AO pour chaque OC
-            count_handicap_types = type_handicap.value_counts()
-            count_handicap_types=count_handicap_types.sort_values()
-            # Créer un diagramme en secteurs
-            fig=plt.figure(figsize=(8, 8))
-            count_handicap_types.plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=['lightblue', 'lightcoral', 'lightgreen', 'lightyellow', 'lightsalmon'])
-            plt.title("Répartition des Zones du projet")
-            plt.ylabel('')  # Supprimer l'étiquette y
-            st.pyplot(fig)
+        st.subheader("Répartition de la Typologie de marché")
+        sns.histplot(df['Typologie de marché'].dropna(), bins=20, kde=True)
+        plt.title("Répartition de la Typologie de marché")
+        st.pyplot()
 
     with col2:
-            #st.subheader('Repation des collaborateur part projet')
-            type_handicap = df['Nom du dossier']
-    
-            # Compter le nombre de AO pour chaque OC
-            count_handicap_types = type_handicap.value_counts()
-            count_handicap_types=count_handicap_types.sort_values()
-            # Créer un diagramme en secteurs
-            fig=plt.figure(figsize=(8, 8))
-            count_handicap_types.plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=['lightblue', 'lightcoral', 'lightgreen', 'lightyellow', 'lightsalmon'])
-            plt.title('Repation des collaborateur part projet')
-            plt.ylabel('')  # Supprimer l'étiquette y
-            st.pyplot(fig)
+        st.subheader("Répartition des Zones du projet")
+        df['Zone du projet'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
+        plt.title("Répartition des Zones du projet")
+        st.pyplot()
 
-            #st.subheader('Repation des collaborateur part projet')
-            type_handicap = df['Phasage du projet']
-    
-            # Compter le nombre de AO pour chaque OC
-            count_handicap_types = type_handicap.value_counts()
-            count_handicap_types=count_handicap_types.sort_values()
-            # Créer un diagramme en secteurs
-            fig=plt.figure(figsize=(8, 8))
-            count_handicap_types.plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=['lightblue', 'lightcoral', 'lightgreen', 'lightyellow', 'lightsalmon'])
-            plt.title('Repation des Phasages du projet')
-            plt.ylabel('')  # Supprimer l'étiquette y
-            st.pyplot(fig)
+        st.subheader("Répartition des Phasages du projet")
+        df['Phasage du projet'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
+        plt.title("Répartition des Phasages du projet")
+        st.pyplot()
 
-
-            #st.subheader('Nombre de projets par collaborateur')
-            fig=plt.figure(figsize=(10, 6))
-            sns.histplot(df["État d'avancement"].dropna(), bins=20, kde=True)
-            plt.title("Repation des État d'avancement")
-            st.pyplot(fig)
-            
     with col3:
-        # Comparaison des montants moyens par autorité contractante
-        #st.subheader('Comparaison des montants moyens par autorité contractante')
-        fig=plt.figure(figsize=(10, 6))
-        sns.barplot(x='Montant', y='Nom du Collaborateur', data=df.sort_values(by="Montant").iloc[-20:], estimator=np.mean)
-        plt.title("Comparaison des montants moyens par collaborateur")
-        st.pyplot(fig)
+        st.subheader("Répartition des collaborateurs par projet")
+        df['Nom du dossier'].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
+        plt.title('Répartition des collaborateurs par projet')
+        st.pyplot()
 
+        st.subheader("Répartition des État d'avancement")
+        sns.histplot(df["État d'avancement"].dropna(), bins=20, kde=True)
+        plt.title("Répartition des État d'avancement")
+        st.pyplot()
 
-        #st.subheader('Repation des collaborateur part projet')
-        type_handicap = df["Nombre d'offres envoyées par l'agent"]
-    
-        # Compter le nombre de AO pour chaque OC
-        count_handicap_types = type_handicap.value_counts()
-        count_handicap_types=count_handicap_types.sort_values()
-        # Créer un diagramme en secteurs
-        fig=plt.figure(figsize=(8, 8))
-        count_handicap_types.plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=['lightblue', 'lightcoral', 'lightgreen', 'lightyellow', 'lightsalmon'])
-        plt.title("Repation des  Nombre d'offres envoyées par agent",)
-        plt.ylabel('')  # Supprimer l'étiquette y
-        st.pyplot(fig)
+    # Comparaison des montants moyens par collaborateur
+    st.header("Comparaison des montants moyens par collaborateur")
+    sns.barplot(x='Montant', y='Nom du Collaborateur', data=df.sort_values(by="Montant").iloc[-20:], estimator=np.mean)
+    plt.title("Comparaison des montants moyens par collaborateur")
+    st.pyplot()
 
-        #st.subheader('Nombre de projets par collaborateur')
-        fig=plt.figure(figsize=(10, 6))
-        sns.histplot(df["Type de sollicitation"].dropna(), bins=20, kde=True)
-        plt.title("Repation des  Type de sollicitation")
-        st.pyplot(fig)
+    # Répartition du Nombre d'offres envoyées par agent
+    st.header("Répartition du Nombre d'offres envoyées par agent")
+    df["Nombre d'offres envoyées par l'agent"].value_counts().plot(kind='pie', autopct='%1.1f%%', startangle=90)
+    plt.title("Répartition du Nombre d'offres envoyées par agent")
+    st.pyplot()
+
+    # Répartition du Type de sollicitation
+    st.header("Répartition du Type de sollicitation")
+    sns.histplot(df["Type de sollicitation"].dropna(), bins=20, kde=True)
+    plt.title("Répartition du Type de sollicitation")
+    st.pyplot()
+
    
 # Navigation entre les différentes pages
 pages = {
