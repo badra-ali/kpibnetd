@@ -87,11 +87,11 @@ st.markdown(
 )
 
 
-# Page de saisie des données des collaborateurs
+# Page de saisie des données des collaborateur
+
 def page_saisie_donnees_collaborateur():
     st.image('Logo_bnetd_transparence.png', caption='', width=200)
-    
-    st.title("Saisie des données de collaborateurs")
+    st.markdown("<h1 style='text-align: center;'>Saisie des données de collaborateurs</h1>", unsafe_allow_html=True)
     
     # Saisie des KPIs
     kpi = saisir_kpi()
@@ -107,10 +107,14 @@ def page_saisie_donnees_collaborateur():
     st.write(df)
     
     # Bouton pour enregistrer les données
-    if st.button("Enregistrer les données"):
+    if st.button("Enregistrer les données", key="save_button"):
         enregistrer_donnees(df)
         st.success("Les données ont été enregistrées avec succès dans 'donnees_kpi.xlsx'")
 
+def saisir_kpi():
+    # Fonction de saisie des KPIs
+    # Implémentez votre logique de saisie ici
+    pass
 
 def enregistrer_donnees(df):
     # Enregistrement des données dans un fichier Excel
@@ -134,7 +138,7 @@ def enregistrer_donnees(df):
     # Enregistrement des données dans le fichier Excel
     df_updated.to_excel("donnees_kpi.xlsx", index=False)
 
-# Ajoutez le style CSS dans un bloc de code HTML
+# Ajout du style CSS
 st.markdown(
     """
     <style>
@@ -160,7 +164,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
     
 # Page du tableau de bord
 def page_tableau_de_bord():
