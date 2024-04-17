@@ -86,66 +86,83 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-def page_saisie_donnees_collaborateur():
-    # Votre fonction page_saisie_donnees_collaborateur ici
-    pass
-
-def page_tableau_de_bord():
-    # Votre fonction page_tableau_de_bord ici
-    pass
 
 # Page de saisie des données des collaborateurs
 def page_saisie_donnees_collaborateur():
-        st.image('Logo_bnetd_transparence.png',caption=' ')
-        #if st.button("Saisie les Informations"):
-        init_donnees_collaborateurs()
-        st.title("Saisie des données de collaborateurs")
-        kpi = saisir_kpi()
-        st.session_state.donnees_collaborateurs.append(kpi)  # Ajouter les données du collaborateur à la liste
+    st.image('Logo_bnetd_transparence.png', caption='', width=200)
     
-        # Créer un DataFrame à partir de la liste de données
-        df = pd.DataFrame(st.session_state.donnees_collaborateurs)
+    st.title("Saisie des données de collaborateurs")
     
-        if st.button("Enregistrer les données"):
-        # Création d'un DataFrame avec les données saisies
-        
-            donnees=pd.read_excel("donnees_kpi.xlsx", sheet_name="Sheet1")
-            df_updated = pd.concat((donnees, df), ignore_index=True)
-            df_updated=df_updated.drop(["Unnamed: 0"], axis=1)
-            #df_updated=df_updated.iloc[:,1:]
-            # Enregistrement dans un fichier Excel
-        
-            import os
-            import shutil
-            
-            # Chemin du fichier à remplacer
-            chemin_fichier = 'donnees_kpi.xlsx'
-            
-            # Vérifier si le fichier existe
-            if os.path.exists(chemin_fichier):
-                # Supprimer le fichier existant
-                os.remove(chemin_fichier)
-                print(f"Le fichier {chemin_fichier} existant a été supprimé.")
-            
-            # Copier le nouveau fichier pour le remplacer
-            try:
-                # Assurez-vous que vous avez les autorisations nécessaires pour écrire dans ce répertoire
-                shutil.copy2('nouveau_donnees_kpi.xlsx', chemin_fichier)
-                print("Le fichier a été remplacé avec succès.")
-            except PermissionError:
-                print("Vous n'avez pas les autorisations nécessaires pour écrire dans ce répertoire.")
-            except FileNotFoundError:
-                print("Le fichier source n'existe pas.")
-            except Exception as e:
-                print(f"Une erreur s'est produite : {e}")
-            # Enregistrement dans un fichier Excel
-            df_updated.to_excel("donnees_kpi.xlsx")
-            st.success("Les données ont été enregistrées avec succès dans 'donnees_kpi.xlsx'")
+    # Saisie des KPIs
+    kpi = saisir_kpi()
+    
+    # Ajout des données du collaborateur à la session
+    if 'donnees_collaborateurs' not in st.session_state:
+        st.session_state.donnees_collaborateurs = []
+    st.session_state.donnees_collaborateurs.append(kpi)
+    
+    # Affichage des données saisies dans un DataFrame
+    st.write("Données saisies:")
+    df = pd.DataFrame(st.session_state.donnees_collaborateurs)
+    st.write(df)
+    
+    # Bouton pour enregistrer les données
+    if st.button("Enregistrer les données"):
+        enregistrer_donnees(df)
+        st.success("Les données ont été enregistrées avec succès dans 'donnees_kpi.xlsx'")
 
-        #if st.button("Importez un Fichier"):
-        #st.write("ok")
 
-        
+def enregistrer_donnees(df):
+    # Enregistrement des données dans un fichier Excel
+    
+    # Lecture des données existantes depuis le fichier Excel
+    donnees = pd.read_excel("donnees_kpi.xlsx", sheet_name="Sheet1")
+    
+    # Concaténation des nouvelles données avec les données existantes
+    df_updated = pd.concat([donnees, df], ignore_index=True)
+    
+    # Suppression de la colonne "Unnamed: 0" si elle existe
+    if "Unnamed: 0" in df_updated.columns:
+        df_updated = df_updated.drop(columns=["Unnamed: 0"])
+    
+    # Remplacement du fichier Excel existant
+    chemin_fichier = 'donnees_kpi.xlsx'
+    if os.path.exists(chemin_fichier):
+        os.remove(chemin_fichier)
+    shutil.copy2('nouveau_donnees_kpi.xlsx', chemin_fichier)
+    
+    # Enregistrement des données dans le fichier Excel
+    df_updated.to_excel("donnees_kpi.xlsx", index=False)
+
+# Ajoutez le style CSS dans un bloc de code HTML
+st.markdown(
+    """
+    <style>
+        .button-primary {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+        }
+
+        .button-primary:hover {
+            background-color: #45a049;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Appel de la fonction page_saisie_donnees_collaborateur
+page_saisie_donnees_collaborateur()
     
 # Page du tableau de bord
 def page_tableau_de_bord():
