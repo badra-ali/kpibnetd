@@ -134,8 +134,6 @@ def enregistrer_donnees(df):
     # Enregistrement des données dans le fichier Excel
     df_updated.to_excel("donnees_kpi.xlsx", index=False)
 
-# Appel de la fonction page_saisie_donnees_collaborateur
-page_saisie_donnees_collaborateur()
 
 # Ajout du style CSS dans un bloc de code HTML
 st.markdown(
