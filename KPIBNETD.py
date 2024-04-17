@@ -43,7 +43,7 @@ def saisir_kpi():
 # Affichage du tableau de bord pour chaque collaborateur
 # Page d'accueil
 def page_accueil():
-    st.image('Logo_bnetd_transparence.png', caption='', width=200)
+    st.image('Logo_bnetd_transparence.png', caption='', width=500)
     st.title("Page d'accueil")
     st.markdown(
         """
@@ -90,7 +90,7 @@ st.markdown(
 # Page de saisie des données des collaborateur
 
 def page_saisie_donnees_collaborateur():
-        st.image('Logo_bnetd_transparence.png',caption=' ')
+        st.image('Logo_bnetd_transparence.png',caption=' ',width=500)
         #if st.button("Saisie les Informations"):
         init_donnees_collaborateurs()
         st.title("Saisie des données de collaborateurs")
