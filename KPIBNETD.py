@@ -246,15 +246,188 @@ def page_tableau_de_bord():
     sns.histplot(df["Type de sollicitation"].dropna(), bins=20, kde=True, ax=ax)
     ax.set_title("Répartition du Type de sollicitation")
     st.pyplot(fig)
-
    
-# Navigation entre les différentes pages
-pages = {
-    "Page d'accueil": page_accueil,
-    "Page de saisie des données des collaborateurs": page_saisie_donnees_collaborateur,
-    "Page du tableau de bord": page_tableau_de_bord
-}
 
-# Afficher la page sélectionnée
-page_selectionnee = st.sidebar.radio("Navigation", list(pages.keys()))
-pages[page_selectionnee]()
+def gestion_profils_utilisateurs():
+    st.subheader("Gestion des profils utilisateurs")
+    
+    # Formulaire pour créer un nouveau profil utilisateur
+    with st.form(key='profil_form'):
+        nom_profil = st.text_input("Nom du profil utilisateur")
+        description_profil = st.text_area("Description du profil utilisateur")
+        submit_button = st.form_submit_button(label='Créer le profil')
+    
+        if submit_button:
+            # Ajoutez ici la logique pour enregistrer le nouveau profil utilisateur dans la base de données
+            st.success(f"Le profil utilisateur '{nom_profil}' a été créé avec succès !")
+
+
+def gestion_fonctionnalites_profils():
+    st.subheader("Gestion des fonctionnalités des profils")
+    
+    # Liste des fonctionnalités disponibles
+    fonctionnalites = ["Fonctionnalité 1", "Fonctionnalité 2", "Fonctionnalité 3"]  # Ajoutez ici vos fonctionnalités
+    
+    # Simulez une liste de profils utilisateurs (à remplacer par votre propre logique)
+    profils_utilisateurs = ["Profil Utilisateur 1", "Profil Utilisateur 2", "Profil Utilisateur 3"]  
+
+    # Affichage du tableau de sélection des fonctionnalités pour chaque profil utilisateur
+    for profil in profils_utilisateurs:
+        st.write(f"Profil utilisateur : {profil}")
+        for fonctionnalite in fonctionnalites:
+            checkbox_state = st.checkbox(fonctionnalite, key=f"{profil}_{fonctionnalite}")
+            # Ajoutez ici la logique pour attribuer les fonctionnalités sélectionnées à chaque profil utilisateur
+            if checkbox_state:
+                st.write(f"La fonctionnalité '{fonctionnalite}' est attribuée au profil '{profil}'")
+
+
+def gestion_utilisateurs():
+    st.subheader("Gestion des utilisateurs")
+    
+    # Formulaire pour créer un nouvel utilisateur
+    with st.form(key='utilisateur_form'):
+        nom_utilisateur = st.text_input("Nom de l'utilisateur")
+        email_utilisateur = st.text_input("Email de l'utilisateur")
+        profil_utilisateur = st.selectbox("Profil de l'utilisateur", ["Profil 1", "Profil 2", "Profil 3"])  # Remplacez par vos profils disponibles
+        submit_button = st.form_submit_button(label='Créer l\'utilisateur')
+    
+        if submit_button:
+            # Ajoutez ici la logique pour enregistrer le nouvel utilisateur dans la base de données
+            st.success(f"L'utilisateur '{nom_utilisateur}' a été créé avec succès !")
+
+
+def parametrage_kpi():
+    st.subheader("Paramétrage des KPIs")
+    
+    # Formulaire pour ajouter un nouveau KPI
+    with st.form(key='ajout_kpi_form'):
+        nom_kpi = st.text_input("Nom du KPI")
+        description_kpi = st.text_area("Description du KPI")
+        unite_organisationnelle = st.selectbox("Unité organisationnelle", ["Unité 1", "Unité 2", "Unité 3"])  # Remplacez par vos unités organisationnelles
+        workflow = st.selectbox("Workflow", ["Workflow 1", "Workflow 2", "Workflow 3"])  # Remplacez par vos workflows
+        source_donnees = st.selectbox("Source de données", ["Source 1", "Source 2", "Source 3"])  # Remplacez par vos sources de données
+        exercice = st.selectbox("Exercice", ["Exercice 1", "Exercice 2", "Exercice 3"])  # Remplacez par vos exercices
+        submit_button = st.form_submit_button(label='Ajouter le KPI')
+    
+        if submit_button:
+            # Ajoutez ici la logique pour enregistrer le nouveau KPI dans la base de données
+            st.success(f"Le KPI '{nom_kpi}' a été ajouté avec succès !")
+    
+    # Liste des KPIs existants avec possibilité de modification ou suppression
+    # Ajoutez ici la logique pour récupérer les KPIs depuis la base de données
+    kpis = ["KPI 1", "KPI 2", "KPI 3"]  # Exemple de liste de KPIs
+    for index, kpi in enumerate(kpis):
+        with st.expander(f"{kpi} - Modifier/Supprimer"):
+            st.write(f"Description : Description du {kpi}")
+            st.write(f"Unité organisationnelle : Unité 1")
+            st.write(f"Workflow : Workflow 1")
+            st.write(f"Source de données : Source 1")
+            st.write(f"Exercice : Exercice 1")
+            bouton_modifier = st.button(f"Modifier {index}")
+            bouton_supprimer = st.button(f"Supprimer {index}")
+            if bouton_modifier:
+                # Ajoutez ici la logique pour modifier le KPI sélectionné
+                st.info(f"Vous avez cliqué sur Modifier pour le KPI '{kpi}'")
+            if bouton_supprimer:
+                # Ajoutez ici la logique pour supprimer le KPI sélectionné
+                st.warning(f"Vous avez cliqué sur Supprimer pour le KPI '{kpi}'")
+
+
+def definition_objectifs_exercice():
+    st.subheader("Définition des objectifs pour chaque exercice")
+    
+    # Formulaire pour ajouter un nouvel objectif
+    with st.form(key='ajout_objectif_form'):
+        organisation = st.selectbox("Organisation", ["Organisation 1", "Organisation 2", "Organisation 3"])  # Remplacez par vos organisations
+        periode = st.text_input("Période")
+        saisies = st.text_area("Saisies")
+        calculs = st.text_area("Calculs")
+        commentaires_recommandations = st.text_area("Commentaires/Recommandations")
+        submit_button = st.form_submit_button(label='Ajouter l\'objectif')
+    
+        if submit_button:
+            # Ajoutez ici la logique pour enregistrer le nouvel objectif dans la base de données
+            st.success("L'objectif a été ajouté avec succès !")
+    
+    # Liste des objectifs existants avec possibilité de modification ou suppression
+    # Ajoutez ici la logique pour récupérer les objectifs depuis la base de données
+    objectifs = ["Objectif 1", "Objectif 2", "Objectif 3"]  # Exemple de liste d'objectifs
+    for index, objectif in enumerate(objectifs):
+        with st.expander(f"{objectif} - Modifier/Supprimer"):
+            st.write(f"Organisation : Organisation 1")
+            st.write(f"Période : Période 1")
+            st.write(f"Saisies : {objectif} saisies")
+            st.write(f"Calculs : {objectif} calculs")
+            st.write(f"Commentaires/Recommandations : {objectif} commentaires/recommandations")
+            bouton_modifier = st.button(f"Modifier {index}")
+            bouton_supprimer = st.button(f"Supprimer {index}")
+            if bouton_modifier:
+                # Ajoutez ici la logique pour modifier l'objectif sélectionné
+                st.info(f"Vous avez cliqué sur Modifier pour l'objectif '{objectif}'")
+            if bouton_supprimer:
+                # Ajoutez ici la logique pour supprimer l'objectif sélectionné
+                st.warning(f"Vous avez cliqué sur Supprimer pour l'objectif '{objectif}'")
+
+
+import streamlit as st
+
+def suivi_audits():
+    st.subheader("Suivi des adaptations effectuées dans l'application")
+
+    # Formulaire pour ajouter un nouvel audit
+    with st.form(key='ajout_audit_form'):
+        date_audit = st.date_input("Date de l'audit")
+        description_audit = st.text_area("Description de l'audit")
+        responsable_audit = st.text_input("Responsable de l'audit")
+        submit_button = st.form_submit_button(label="Ajouter l'audit")
+
+        if submit_button:
+            # Ajoutez ici la logique pour enregistrer le nouvel audit dans la base de données
+            st.success("L'audit a été ajouté avec succès !")
+
+    # Liste des audits existants avec possibilité de modification ou suppression
+    # Ajoutez ici la logique pour récupérer les audits depuis la base de données
+    audits = [("2024-01-01", "Audit 1", "Responsable 1"), ("2024-01-15", "Audit 2", "Responsable 2")]  # Exemple de liste d'audits
+    for index, audit in enumerate(audits):
+        with st.expander(f"Audit {index+1} - Modifier/Supprimer"):
+            st.write(f"Date de l'audit : {audit[0]}")
+            st.write(f"Description de l'audit : {audit[1]}")
+            st.write(f"Responsable de l'audit : {audit[2]}")
+            bouton_modifier = st.button(f"Modifier {index+1}")
+            bouton_supprimer = st.button(f"Supprimer {index+1}")
+            if bouton_modifier:
+                # Ajoutez ici la logique pour modifier l'audit sélectionné
+                st.info(f"Vous avez cliqué sur Modifier pour l'audit {index+1}")
+            if bouton_supprimer:
+                # Ajoutez ici la logique pour supprimer l'audit sélectionné
+                st.warning(f"Vous avez cliqué sur Supprimer pour l'audit {index+1}")
+
+
+
+# Barre de navigation
+st.sidebar.title("Module Administration et KPI")
+option = st.sidebar.radio("Sélectionnez une option :", ["Accueil","Gestion des profils utilisateurs", "Gestion des fonctionnalités des profils", "Gestion des utilisateurs", "Paramétrage des KPIs","Exercice","Suivi et Audit","Saisis Information KPI","Tableau de Bord"])
+
+# Affichage de la fonctionnalité sélectionnée
+if option == "Gestion des profils utilisateurs":
+    gestion_profils_utilisateurs()
+elif option == "Gestion des fonctionnalités des profils":
+    gestion_fonctionnalites_profils()
+elif option == "Gestion des utilisateurs":
+    gestion_utilisateurs()
+elif option == "Paramétrage des KPIs":
+    parametrage_kpi()
+
+elif option == "Exercice":
+    definition_objectifs_exercice()
+elif option == "Suivi et Audit":
+    suivi_audits()
+
+elif option == "Accueil":
+    page_accueil()
+
+elif option == "Saisis Information KPI":
+    page_saisie_donnees_collaborateur()
+
+elif option == "Tableau de Bord":
+    page_tableau_de_bord()
