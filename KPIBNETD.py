@@ -359,6 +359,117 @@ def parametrage_kpi():
                 st.warning(f"Vous avez cliqué sur Supprimer pour le KPI '{kpi}'")
 
 
+    # Fonction pour gérer les groupes d'indicateurs
+def group_indicateur():
+    choix_indic = st.radio("Choisir l'action :", ["Créer un groupe d'indicateurs", "Consulter les groupes d'indicateurs", "Modifier les groupes d'indicateurs"])
+    
+    if choix_indic == "Créer un groupe d'indicateurs":
+       creer_groupe_indicateur()
+        
+    elif choix_indic == "Consulter les groupes d'indicateurs":
+        consulter_groupes_indicateurs()
+
+    elif choix_indic == "Modifier les groupes d'indicateurs":
+        modifier_groupes_indicateurs()
+
+# Fonction pour créer un groupe d'indicateurs
+def creer_groupe_indicateur():
+    st.title("Créer un groupe d'indicateurs")
+    
+    # Formulaire de création d'un groupe d'indicateurs
+    with st.form("creation_groupe_indicateur"):
+        st.write("Veuillez renseigner les informations du groupe d'indicateurs :")
+        
+        # Champ de saisie pour le code du groupe
+        code_groupe = st.text_input("Code du groupe :")
+        
+        # Champ de saisie pour le libellé du groupe
+        libelle_groupe = st.text_input("Libellé du groupe :")
+        
+        # Champ de saisie pour la description du groupe
+        description_groupe = st.text_area("Description du groupe :")
+        
+        # Sélection du type de groupe
+        type_groupe = st.selectbox("Type de groupe :", ["Entité", "Utilisateur", "Groupe utilisateur"])
+        
+        # Bouton de validation du formulaire
+        submitted = st.form_submit_button("Enregistrer")
+        
+        # Traitement des données soumises
+        if submitted:
+            # Vérification des champs obligatoires
+            if code_groupe and libelle_groupe:
+                # Enregistrement du groupe d'indicateurs dans la base de données
+                st.success("Le groupe d'indicateurs a été créé avec succès.")
+            else:
+                st.warning("Veuillez remplir tous les champs obligatoires.")
+
+# Fonction pour consulter les groupes d'indicateurs
+def consulter_groupes_indicateurs():
+    st.title("Consulter les groupes d'indicateurs")
+    
+    # Simulation des données de groupe d'indicateurs
+    groupes_indicateurs = [
+        {"code": "GI001", "libelle": "Groupe Indicateur 1", "description": "Description du groupe 1", "type": "Entité"},
+        {"code": "GI002", "libelle": "Groupe Indicateur 2", "description": "Description du groupe 2", "type": "Utilisateur"},
+        {"code": "GI003", "libelle": "Groupe Indicateur 3", "description": "Description du groupe 3", "type": "Groupe Utilisateur"}
+    ]
+    
+    # Affichage de la liste des groupes d'indicateurs
+    selected_groupe = st.selectbox("Sélectionner un groupe d'indicateurs :", [groupe["libelle"] for groupe in groupes_indicateurs])
+    
+    # Récupération des informations du groupe sélectionné
+    groupe_info = next((groupe for groupe in groupes_indicateurs if groupe["libelle"] == selected_groupe), None)
+    
+    # Affichage des informations du groupe sélectionné
+    if groupe_info:
+        st.write(f"Code : {groupe_info['code']}")
+        st.write(f"Libellé : {groupe_info['libelle']}")
+        st.write(f"Description : {groupe_info['description']}")
+        st.write(f"Type : {groupe_info['type']}")
+        # Autres informations relatives aux indicateurs du groupe à afficher ici
+
+# Fonction pour modifier les groupes d'indicateurs
+def modifier_groupes_indicateurs():
+    st.title("Modifier les groupes d'indicateurs")
+    
+    # Simulation des données du groupe d'indicateurs
+    groupe_indicateur = {
+        "code": "GI001",
+        "libelle": "Groupe Indicateur 1",
+        "description": "Description du groupe 1",
+        "type": "Entité"
+    }
+    
+    # Affichage des informations du groupe d'indicateurs à modifier
+    st.write(f"Code : {groupe_indicateur['code']}")
+    st.write(f"Libellé actuel : {groupe_indicateur['libelle']}")
+    st.write(f"Description actuelle : {groupe_indicateur['description']}")
+    st.write(f"Type actuel : {groupe_indicateur['type']}")
+    
+    # Formulaire de modification
+    st.subheader("Modifier les informations :")
+    libelle = st.text_input("Nouveau libellé :", groupe_indicateur['libelle'])
+    description = st.text_area("Nouvelle description :", groupe_indicateur['description'])
+    type_groupe = st.selectbox("Nouveau type de groupe :", ["Entité", "Utilisateur", "Groupe Utilisateur"], index=0)
+    
+    # Validation de la modification
+    if st.button("Enregistrer les modifications"):
+        # Validation des informations obligatoires
+        if libelle.strip() == "" or description.strip() == "":
+            st.error("Veuillez remplir tous les champs obligatoires.")
+        else:
+            # Mise à jour des informations du groupe d'indicateurs
+            groupe_indicateur["libelle"] = libelle
+            groupe_indicateur["description"] = description
+            groupe_indicateur["type"] = type_groupe
+            # Affichage des informations mises à jour
+            st.success("Les modifications ont été enregistrées avec succès.")
+            st.write(f"Nouveau libellé : {libelle}")
+            st.write(f"Nouvelle description : {description}")
+            st.write(f"Nouveau type de groupe : {type_groupe}")
+
+
 def definition_objectifs_exercice():
     st.subheader("Définition des objectifs pour chaque exercice")
     
