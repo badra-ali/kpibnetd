@@ -266,7 +266,7 @@ def gestion_profils_utilisateurs():
                 st.error("Les champs marqués d'une astérisque (*) sont obligatoires.")
     
     # Section pour les autres fonctionnalités de gestion des profils utilisateurs
-    with st.beta_expander("Autres actions"):
+    with st.expander("Autres actions"):
         action = st.selectbox("Sélectionner une action", ["Activer un compte", "Désactiver un compte", "Bloquer un compte", "Débloquer un compte", "Déverrouiller un compte", "Réinitialiser un mot de passe"])
         
         if action == "Activer un compte":
