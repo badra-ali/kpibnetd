@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 # Créer une liste vide pour stocker les données de chaque collaborateur
-st.image('téléchargement.JPEG', caption='', width=500)
+st.image('tableau-de-bord-kpi-exemple.png', caption='', width=500)
 def init_donnees_collaborateurs():
     #if 'donnees_collaborateurs' not in st.session_state:
     st.session_state.donnees_collaborateurs = []
