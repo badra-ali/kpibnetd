@@ -251,14 +251,42 @@ def gestion_profils_utilisateurs():
     
     # Formulaire pour créer un nouveau profil utilisateur
     with st.form(key='profil_form'):
-        nom_profil = st.text_input("Nom du profil utilisateur")
+        st.write("### Créer un nouveau profil utilisateur")
+        nom_profil = st.text_input("Nom du profil utilisateur*")
         description_profil = st.text_area("Description du profil utilisateur")
+        fonctionnalites_autorisees = st.text_area("Fonctionnalités autorisées*")
         submit_button = st.form_submit_button(label='Créer le profil')
-    
+        
         if submit_button:
-            # Ajoutez ici la logique pour enregistrer le nouveau profil utilisateur dans la base de données
-            st.success(f"Le profil utilisateur '{nom_profil}' a été créé avec succès !")
-
+            # Vérification des champs obligatoires
+            if nom_profil and fonctionnalites_autorisees:
+                # Ajoutez ici la logique pour enregistrer le nouveau profil utilisateur dans la base de données
+                st.success(f"Le profil utilisateur '{nom_profil}' a été créé avec succès !")
+            else:
+                st.error("Les champs marqués d'une astérisque (*) sont obligatoires.")
+    
+    # Section pour les autres fonctionnalités de gestion des profils utilisateurs
+    with st.beta_expander("Autres actions"):
+        action = st.selectbox("Sélectionner une action", ["Activer un compte", "Désactiver un compte", "Bloquer un compte", "Débloquer un compte", "Déverrouiller un compte", "Réinitialiser un mot de passe"])
+        
+        if action == "Activer un compte":
+            # Logique pour activer un compte
+            st.write("Fonctionnalité d'activation de compte")
+        elif action == "Désactiver un compte":
+            # Logique pour désactiver un compte
+            st.write("Fonctionnalité de désactivation de compte")
+        elif action == "Bloquer un compte":
+            # Logique pour bloquer un compte
+            st.write("Fonctionnalité de blocage de compte")
+        elif action == "Débloquer un compte":
+            # Logique pour débloquer un compte
+            st.write("Fonctionnalité de déblocage de compte")
+        elif action == "Déverrouiller un compte":
+            # Logique pour déverrouiller un compte
+            st.write("Fonctionnalité de déverrouillage de compte")
+        elif action == "Réinitialiser un mot de passe":
+            # Logique pour réinitialiser un mot de passe
+            st.write("Fonctionnalité de réinitialisation de mot de passe")
 
 def gestion_fonctionnalites_profils():
     st.subheader("Gestion des fonctionnalités des profils")
