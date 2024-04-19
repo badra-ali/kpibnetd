@@ -360,15 +360,6 @@ def parametrage_kpi():
 
 
     choix_indic = st.radio("Choisir l'action :", ["Créer un groupe d'indicateurs", "Consulter les groupes d'indicateurs", "Modifier les groupes d'indicateurs"])
-    
-    if choix_indic == "Créer un groupe d'indicateurs":
-       creer_groupe_indicateur()
-        
-    elif choix_indic == "Consulter les groupes d'indicateurs":
-        consulter_groupes_indicateurs()
-
-    elif choix_indic == "Modifier les groupes d'indicateurs":
-        modifier_groupes_indicateurs()
 
     # Fonction pour créer un groupe d'indicateurs
     def creer_groupe_indicateur():
@@ -466,7 +457,14 @@ def parametrage_kpi():
                 st.write(f"Nouveau libellé : {libelle}")
                 st.write(f"Nouvelle description : {description}")
                 st.write(f"Nouveau type de groupe : {type_groupe}")
+if choix_indic == "Créer un groupe d'indicateurs":
+       creer_groupe_indicateur()
+        
+elif choix_indic == "Consulter les groupes d'indicateurs":
+        consulter_groupes_indicateurs()
 
+elif choix_indic == "Modifier les groupes d'indicateurs":
+        modifier_groupes_indicateurs()
 
 def definition_objectifs_exercice():
     st.subheader("Définition des objectifs pour chaque exercice")
