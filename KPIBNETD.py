@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 # Créer une liste vide pour stocker les données de chaque collaborateur
+st.image('Logo_bnetd_transparence.png', caption='', width=500)
 def init_donnees_collaborateurs():
     #if 'donnees_collaborateurs' not in st.session_state:
     st.session_state.donnees_collaborateurs = []
@@ -43,7 +44,6 @@ def saisir_kpi():
 # Affichage du tableau de bord pour chaque collaborateur
 # Page d'accueil
 def page_accueil():
-    st.image('Logo_bnetd_transparence.png', caption='', width=500)
     st.title("Page d'accueil")
     st.markdown(
         """
@@ -90,7 +90,6 @@ st.markdown(
 # Page de saisie des données des collaborateur
 
 def page_saisie_donnees_collaborateur():
-        st.image('Logo_bnetd_transparence.png',caption=' ',width=500)
         #if st.button("Saisie les Informations"):
         init_donnees_collaborateurs()
         st.title("Saisie des données de collaborateurs")
@@ -170,7 +169,6 @@ st.markdown(
     
 # Page du tableau de bord
 def page_tableau_de_bord():
-    st.image('Logo_bnetd_transparence.png', caption='', width=200)
 
     # Chargement des données
     df = pd.read_excel("1_graphiques_DEFI.xlsx")
@@ -403,13 +401,49 @@ def suivi_audits():
                 st.warning(f"Vous avez cliqué sur Supprimer pour l'audit {index+1}")
 
 
+# Fonction pour afficher les indicateurs spécifiques à chaque entité
+def mes_indicateurs():
+    st.sidebar.subheader("Mes indicateurs")
+    
+    # Sélection de l'entité (département, service)
+    selected_entity = st.sidebar.selectbox("Sélectionnez une entité :", ["Département 1", "Département 2", "Département 3"])  # Remplacez par vos départements ou services
+    
+    # Simulation de données d'indicateurs (à remplacer par vos propres données)
+    indicators_data = {
+        "Indicateur 1": {"value": 80, "min": 60, "max": 100, "recommandation": "Améliorer la collecte de données."},
+        "Indicateur 2": {"value": 40, "min": 50, "max": 90, "recommandation": "Analyser les causes de sous-performance."},
+        "Indicateur 3": {"value": 70, "min": 70, "max": 120, "recommandation": "Maintenir la performance actuelle."},
+    }
+    
+    # Affichage des indicateurs en fonction de l'entité sélectionnée
+    if selected_entity:
+        st.subheader(f"Indicateurs pour {selected_entity}")
+        
+        # Affichage des indicateurs au vert et au rouge
+        st.subheader("Indicateurs au vert :")
+        for indicator, data in indicators_data.items():
+            if data["value"] >= data["min"] and data["value"] <= data["max"]:
+                st.write(f"{indicator}: {data['value']} (Plage de valeurs acceptables)")
+        
+        st.subheader("Indicateurs au rouge :")
+        for indicator, data in indicators_data.items():
+            if data["value"] < data["min"] or data["value"] > data["max"]:
+                st.write(f"{indicator}: {data['value']} (Hors de la plage de valeurs acceptables)")
+        
+        # Affichage des recommandations par indicateur
+        st.subheader("Recommandations par indicateur :")
+        for indicator, data in indicators_data.items():
+            st.write(f"{indicator}: {data['recommandation']}")
 
 # Barre de navigation
 st.sidebar.title("Module Administration et KPI")
-option = st.sidebar.radio("Sélectionnez une option :", ["Accueil","Gestion des profils utilisateurs", "Gestion des fonctionnalités des profils", "Gestion des utilisateurs", "Paramétrage des KPIs","Exercice","Suivi et Audit","Saisis Information KPI","Tableau de Bord"])
+option = st.sidebar.radio("Sélectionnez une option :", ["Accueil", "Gestion des profils utilisateurs", "Gestion des fonctionnalités des profils", "Gestion des utilisateurs", "Paramétrage des KPIs", "Exercice", "Suivi et Audit", "Saisis Information KPI", "Tableau de Bord", "Mes indicateurs"])
 
 # Affichage de la fonctionnalité sélectionnée
-if option == "Gestion des profils utilisateurs":
+
+if option == "Accueil":
+    page_accueil()
+elif option == "Gestion des profils utilisateurs":
     gestion_profils_utilisateurs()
 elif option == "Gestion des fonctionnalités des profils":
     gestion_fonctionnalites_profils()
@@ -417,17 +451,13 @@ elif option == "Gestion des utilisateurs":
     gestion_utilisateurs()
 elif option == "Paramétrage des KPIs":
     parametrage_kpi()
-
 elif option == "Exercice":
     definition_objectifs_exercice()
 elif option == "Suivi et Audit":
     suivi_audits()
-
-elif option == "Accueil":
-    page_accueil()
-
 elif option == "Saisis Information KPI":
     page_saisie_donnees_collaborateur()
-
 elif option == "Tableau de Bord":
     page_tableau_de_bord()
+elif option == "Mes indicateurs":
+    mes_indicateurs()
